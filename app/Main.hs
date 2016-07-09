@@ -7,5 +7,5 @@ main :: IO ()
 main = do
   token <- lookupEnv "GITHUB_TOKEN"
   args <- getArgs
-  repos <- someFunc token args
-  print repos
+  repos <- getUserRepos token args
+  print (fmap length repos)
