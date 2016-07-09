@@ -37,5 +37,5 @@ getPrs (Just url) token = do
 
   return $ liftM2 (++) (Just repos) nextRepos
 
-getRepoPullRequests Nothing _ _ = return Nothing
-getRepoPullRequests (Just token) owner repo = getPrs (apiUrl owner repo) (B.pack token)
+getRepoPullRequests :: String -> String -> String -> IO (Maybe [Value])
+getRepoPullRequests token owner repo = getPrs (apiUrl owner repo) (B.pack token)

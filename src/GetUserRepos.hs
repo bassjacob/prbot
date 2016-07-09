@@ -39,8 +39,5 @@ getPages (Just url) token = do
 
   return $ liftM2 (++) (Just repos) nextRepos
 
-getUserRepos :: Maybe String -> [String] -> IO (Maybe [Value])
-getUserRepos Nothing _ = return Nothing
-getUserRepos _ [] = return Nothing
-getUserRepos _ [_] = return Nothing
-getUserRepos (Just token) (search:user:_) = getPages (apiUrl search user) (B.pack token)
+getUserRepos :: String -> String -> String -> IO (Maybe [Value])
+getUserRepos token user search = getPages (apiUrl search user) (B.pack token)
