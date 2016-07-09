@@ -1,11 +1,19 @@
 module Main where
 
-import System.Environment (lookupEnv, getArgs)
+import System.Environment (getEnvironment, lookupEnv, getArgs)
 import Lib
+
+data Opts = Opts {
+                 }
 
 main :: IO ()
 main = do
-  token <- lookupEnv "GITHUB_TOKEN"
+  env <- getEnvironment
   args <- getArgs
+  token <- lookupEnv "GITHUB_TOKEN"
+
   repos <- getUserRepos token args
-  print (fmap length repos)
+  print $ "Finding PRs for " ++ show (fmap length repos) ++ " Repositories"
+  prs <- getRepoPullRequests token "domain-group" "fe-ops-agency-server"
+  print prs
+
