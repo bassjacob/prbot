@@ -19,9 +19,8 @@ apiUrl search user =
     ++ "+user:"
     ++ user
 
-getPage url token =
-  let opts = defaults & auth ?~ oauth2Token (B.pack token) in
-    getWith opts url
+getPage url token = getWith opts url
+  where opts = defaults & auth ?~ oauth2Token (B.pack token)
 
 extractRepos = flip (^..) $ responseBody
                               . key "items"
